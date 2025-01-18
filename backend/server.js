@@ -1,9 +1,4 @@
 
-  /**
-   * Sample JavaScript code for youtube.commentThreads.list
-   * See instructions for running APIs Explorer code samples locally:
-   * https://developers.google.com/explorer-help/code-samples#javascript
-   */
 
   function loadClient() {
     gapi.client.setApiKey("YOUR_API_KEY");
