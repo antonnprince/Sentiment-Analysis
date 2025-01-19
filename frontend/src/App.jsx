@@ -1,16 +1,18 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import {BrowserRouter, Routes, Route} from "react-router-dom"
+import InputPage from "./Input.jsx";
+import Analysis from "./Analysis.jsx";
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <div>
-      <h1 className='text-3xl font-extrabold text-white'>HELOo</h1>
-    </div>
-  )
+<>
+<BrowserRouter>
+    <Routes>
+      <Route path="/" element={<InputPage/>} />
+      <Route path="/analysis" element={<Analysis/>} />
+    </Routes>
+</BrowserRouter>
+</>
+  );
 }
 
-export default App
+export default App;
