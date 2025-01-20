@@ -42,7 +42,7 @@ const InputPage = () => {
                 </Link>
                </Button>
             </CardFooter>
-            </Card>
+        </Card>
     </div>
   )
 }

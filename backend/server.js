@@ -2,12 +2,14 @@ import express from 'express';
 import cors from 'cors';
 import { google } from 'googleapis';
 import dotenv from 'dotenv'
+import getAnalysis from './gemini.js';
+
 const app = express();
 app.use(express.json());
 app.use(cors());
 dotenv.config()
 
-const comments=[]
+let comments=[]
 // Load YouTube API
 const youtube = google.youtube({
   version: 'v3',
@@ -37,7 +39,9 @@ app.post('/get_comments', async (req, res) => {
     });
 
     console.log(comments); // Log the formatted comments
-    res.status(200).json(comments); // Return the formatted comments
+    const analysis = await getAnalysis(comments)
+    console.log(analysis)
+    res.status(200).json(analysis); // Return the formatted comments
   } 
   catch (error) {
     console.error("Error fetching comments", error);
@@ -52,3 +56,5 @@ function extractVideoId(url) {
   const match = url.match(regex);
   return match ? (match[1] || match[2]) : null;
 }
+
+
