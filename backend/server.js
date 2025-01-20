@@ -1,15 +1,17 @@
 import express from 'express';
 import cors from 'cors';
 import { google } from 'googleapis';
-
+import dotenv from 'dotenv'
 const app = express();
 app.use(express.json());
 app.use(cors());
+dotenv.config()
 
+const comments=[]
 // Load YouTube API
 const youtube = google.youtube({
   version: 'v3',
-  auth: 'process.env.YOUTUBE_API' // Set your API key here
+  auth: process.env.YOUTUBE_API // Set your API key here
 });
 
 app.listen(3000, () => console.log("Server is running on port 3000"));
@@ -23,25 +25,21 @@ app.post('/get_comments', async (req, res) => {
     const response = await youtube.commentThreads.list({
       part: 'snippet,replies',
       videoId: videoId,
-      maxResults: 5 // You can specify the number of comments to fetch
+      maxResults: 100 // You can specify the number of comments to fetch
     });
 
     // Process the response
-    const comments = response.data.items.map(item => {
+     comments = response.data.items.map(item => {
       const comment = item.snippet.topLevelComment.snippet;
-      return {
-        commentId: item.id,
-        author: comment.authorDisplayName,
-        text: comment.textOriginal,
-        likeCount: comment.likeCount,
-        publishedAt: comment.publishedAt,
-        replies: item.replies ? item.replies.comments.map(reply => reply.snippet.textOriginal) : []
-      };
+      return (
+        comment.textOriginal
+      )
     });
 
     console.log(comments); // Log the formatted comments
     res.status(200).json(comments); // Return the formatted comments
-  } catch (error) {
+  } 
+  catch (error) {
     console.error("Error fetching comments", error);
     res.status(500).json({ message: "Error fetching comments" });
   }
