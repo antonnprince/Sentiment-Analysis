@@ -7,15 +7,19 @@ import {   Card,
     CardTitle, } from "@/components/ui/card"
 import {Input} from "@/components/ui/input"
 import {Button} from "@/components/ui/button"
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import axios from 'axios'
 
 const InputPage = () => {
   const [url, setUrl] = useState("")
+  const navigate=useNavigate()
+
 
   const sendData= async()=>{
     const res = await axios.post("http://localhost:3000/get_comments", {url:url})
+    const analysis = res.data
+    navigate('/analysis',{state: {analysis}})
   }
   return (
     <div className='flex my-64 justify-center'>

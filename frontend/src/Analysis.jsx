@@ -8,9 +8,15 @@ import {   Card,
 import {Button} from "@/components/ui/button"
 import { Progress } from "@/components/ui/progress"
 import { Label } from "@/components/ui/label"
+import { useLocation } from 'react-router-dom'
 
 
 const Analysis = () => {
+
+const location = useLocation()
+const {analysis} = location.state || {}
+console.log(JSON.stringify(analysis))
+
   return (
     <div className='mx-4 my-8 flex flex-row space-x-4'>
      

@@ -9,8 +9,6 @@ app.use(express.json());
 app.use(cors());
 dotenv.config()
 
-let comments=[]
-// Load YouTube API
 const youtube = google.youtube({
   version: 'v3',
   auth: process.env.YOUTUBE_API // Set your API key here
@@ -31,17 +29,17 @@ app.post('/get_comments', async (req, res) => {
     });
 
     // Process the response
-     comments = response.data.items.map(item => {
+     const comments = response.data.items.map(item => {
       const comment = item.snippet.topLevelComment.snippet;
       return (
         comment.textOriginal
       )
     });
 
-    console.log(comments); // Log the formatted comments
+    // console.log(comments); // Log the formatted comments
     const analysis = await getAnalysis(comments)
     console.log(analysis)
-    res.status(200).json(analysis); // Return the formatted comments
+    res.status(200).json(analysis);
   } 
   catch (error) {
     console.error("Error fetching comments", error);
@@ -49,6 +47,13 @@ app.post('/get_comments', async (req, res) => {
   }
 });
 
+app.get('/analysis', async(req,res)=>{
+  try {
+    return res.status(200).json(analysis)
+  } catch (error) {
+    console.log(error)
+  }
+})
 
 // Helper function to extract video ID from YouTube URL
 function extractVideoId(url) {
