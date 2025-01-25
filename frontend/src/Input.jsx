@@ -19,6 +19,7 @@ const InputPage = () => {
   const sendData= async()=>{
     const res = await axios.post("http://localhost:3000/get_comments", {url:url})
     const analysis = res.data
+    console.log(typeof(analysis)," ", analysis)
     navigate('/analysis',{state: {analysis}})
   }
   return (
@@ -41,9 +42,9 @@ const InputPage = () => {
                <Button className="bg-white text-black text-center w-full"
                onClick={sendData}
                >
-                <Link to="/analysis">
+                {/* <Link to="/analysis"> */}
                   Analyze Comments
-                </Link>
+                {/* </Link> */}
                </Button>
             </CardFooter>
         </Card>

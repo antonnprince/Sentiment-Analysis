@@ -15,7 +15,7 @@ const Analysis = () => {
 
 const location = useLocation()
 const {analysis} = location.state || {}
-console.log(JSON.stringify(analysis))
+console.log((analysis))
 
   return (
     <div className='mx-4 my-8 flex flex-row space-x-4'>
