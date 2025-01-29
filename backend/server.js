@@ -5,8 +5,15 @@ import dotenv from 'dotenv'
 import getAnalysis from './gemini.js';
 
 const app = express();
+
 app.use(express.json());
-app.use(cors(  {origin: "https://sentiment-analysis-lac.vercel.app"} ));
+
+app.use(cors({
+  origin: "https://sentiment-analysis-lac.vercel.app", // Allow only this frontend
+  methods: "GET,POST", // Allow specific HTTP methods
+  credentials: true // Allow cookies & authentication headers
+}));
+
 dotenv.config()
 
 const youtube = google.youtube({
