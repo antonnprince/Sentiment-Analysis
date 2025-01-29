@@ -17,6 +17,13 @@ const youtube = google.youtube({
 app.listen(3000, () => console.log("Server is running on port 3000"));
 
 // Endpoint to get comments
+app.get('/', async(req,res)=>{
+  try {
+    return res.status(200).json({message:"Welcome"})
+  } catch (error) {
+    console.log(error)
+  }
+})
 app.post('/get_comments', async (req, res) => {
   try {
     const { url } = req.body;
