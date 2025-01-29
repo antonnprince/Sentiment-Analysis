@@ -6,7 +6,7 @@ import getAnalysis from './gemini.js';
 
 const app = express();
 app.use(express.json());
-app.use(cors());
+app.use(cors(  {origin: "https://sentiment-analysis-lac.vercel.app"} ));
 dotenv.config()
 
 const youtube = google.youtube({
