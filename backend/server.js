@@ -3,16 +3,18 @@ import cors from 'cors';
 import { google } from 'googleapis';
 import dotenv from 'dotenv'
 import getAnalysis from './gemini.js';
+import { get } from 'mongoose';
 
 const app = express();
 
 app.use(express.json());
 
 app.use(cors({
-  origin: "https://sentiment-analysis-lac.vercel.app", // Allow only this frontend
+  origin: "http://localhost:5173/", // Allow only this frontend
   methods: "GET,POST", // Allow specific HTTP methods
   credentials: true // Allow cookies & authentication headers
 }));
+
 
 dotenv.config()
 
@@ -23,14 +25,17 @@ const youtube = google.youtube({
 
 app.listen(3000, () => console.log("Server is running on port 3000"));
 
-// Endpoint to get comments
-app.get('/', async(req,res)=>{
-  try {
-    return res.status(200).json({message:"Welcome"})
-  } catch (error) {
-    console.log(error)
-  }
-})
+// // Endpoint to get comments
+// app.get('/', async(req,res)=>{
+//   try {
+//     const data = await getAnalysis(["This is a test comment", "Another comment"]);
+//     console.log(data)
+//     return res.status(200).json({message:"Welcome"})
+//   } catch (error) {
+//     console.log(error)
+//   }
+// })
+
 app.post('/get_comments', async (req, res) => {
   try {
     const { url } = req.body;
@@ -43,17 +48,18 @@ app.post('/get_comments', async (req, res) => {
     });
 
     // Process the response
-     const comments = response.data.items.map(item => {
+      const comments = response.data.items.map(item => {
       const comment = item.snippet.topLevelComment.snippet;
       return (
-        comment.textOriginal
+        {
+        "text":  comment.textOriginal,
+          "date": comment.publishedAt
+        }
       )
     });
-
-    // console.log(comments); // Log the formatted comments
-    const analysis = await getAnalysis(comments)
-    console.log(analysis)
-    res.status(200).json(analysis);
+    // const analysis = await getAnalysis(comments)
+    // console.log(JSON.parse(comments))
+    res.status(200).json(comments);
   } 
   catch (error) {
     console.error("Error fetching comments", error);

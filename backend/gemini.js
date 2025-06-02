@@ -6,7 +6,7 @@ dotenv.config()
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API);
 const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
-async function getAnalysis(comments) {
+export default async function getAnalysis(comments) {
     const prompt = `These are the comments of a YouTube video:
     ${comments}
     I want you to analyze these comments and divide them into 3 categories - agree, disagree, and neutral. Return the answer
@@ -35,4 +35,4 @@ async function getAnalysis(comments) {
 }
 
 
-export default getAnalysis
+// export default getAnalysis

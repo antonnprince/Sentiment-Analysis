@@ -17,7 +17,8 @@ const InputPage = () => {
 
 
   const sendData= async()=>{
-    const res = await axios.post(`${import.meta.env.VITE_SERVER_ROUTE}get_comments`, {url:url})
+    // const res = await axios.post(`${import.meta.env.VITE_SERVER_ROUTE}get_comments`, {url:url})
+const res = await axios.post(`http://localhost:3000/get_comments`, {url:url})
     const analysis = res.data
     console.log(typeof(analysis)," ", analysis)
     navigate('/analysis',{state: {analysis}})
