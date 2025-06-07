@@ -1,13 +1,3 @@
-import React, { useEffect } from 'react'
-import {   Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle, } from "@/components/ui/card"
-import {Button} from "@/components/ui/button"
-import { Progress } from "@/components/ui/progress"
-import { Label } from "@/components/ui/label"
 import { useLocation } from 'react-router-dom'
 import { useState } from 'react'
 
