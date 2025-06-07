@@ -2,7 +2,7 @@ import React from 'react'
 
 export const Nav = () => {
   return (
-    <div className='flex-col sm:flex md:flex-row w-full md:justify-between p-4 border-b-2 border-gray-300 h-fit'>
+    <div className='flex-col hidden sm:flex md:flex-row w-full md:justify-between p-4 border-b-2 border-gray-300 h-fit'>
     
       <h1 className='font-bold'>Video Insights</h1>
 
