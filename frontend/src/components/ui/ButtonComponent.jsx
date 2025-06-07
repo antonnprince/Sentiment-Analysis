@@ -1,6 +1,7 @@
 import React from 'react'
+import {Link} from "react-router-dom"
 
-export const ButtonComponent = ({ text }) => {
+export const ButtonComponent = ({ text, link }) => {
   return (
     <div className="flex items-center justify-center h-fit">
       <div className="relative group">
@@ -13,7 +14,9 @@ export const ButtonComponent = ({ text }) => {
           <span className="relative z-10 block px-6 py-3 rounded-xl bg-gray-950">
             <span className="relative z-10 flex items-center space-x-2">
               <span className="transition-all duration-500 group-hover:translate-x-1">
+                <Link to={link}>
                 {text}
+                </Link>
               </span>
               <svg
                 className="w-6 h-6 transition-transform duration-500 group-hover:translate-x-1"

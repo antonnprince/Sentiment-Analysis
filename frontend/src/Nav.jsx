@@ -8,7 +8,7 @@ export const Nav = () => {
 
       <ul className='flex font-semibold flex-row gap-4 lg:gap-8 text-sm  items-center'>
 
-        <li >Features</li>
+        <li>Features</li>
         <li>Contact</li>
         <li className='bg-blue-950 px-4 py-1  rounded-lg'>Analyze Video</li>
       </ul>
