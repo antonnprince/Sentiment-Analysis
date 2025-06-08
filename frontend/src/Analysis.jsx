@@ -8,7 +8,7 @@ const Analysis = () => {
 
 
   const formatUrl =(videoUrl)=>{
-    if(videoUrl.includes("ttps://www.youtube.com/watch"))
+    if(videoUrl.includes("https://www.youtube.com/watch"))
     {
       console.log('true')
     }
