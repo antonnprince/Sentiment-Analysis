@@ -1,5 +1,6 @@
 import React from 'react'
 import { ButtonComponent } from './components/ui/ButtonComponent'
+import { Link } from 'react-router-dom'
 
 const Hero = () => {
   return (
@@ -13,6 +14,7 @@ const Hero = () => {
             Just enter the link and hit <span className='text-sky-400 font-semibold'>analyze</span>
         </p>
         <ButtonComponent text={"Analyze"} link={"/analysis"}/>
+
     </div>
   )
 }

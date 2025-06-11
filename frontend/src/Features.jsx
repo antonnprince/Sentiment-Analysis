@@ -1,18 +1,21 @@
 import React from 'react'
 
 const Features = () => {
+const features = [
+    {
+        "title": "Sentiment Breakdown",
+        "description": "Get a detailed breakdown of positive, neutral, and negative sentiments in your video's comments. Visualize sentiment distribution using charts, track changes over time, and identify sentiment spikes during key moments of your video."
+    },
+    {
+        "title": "Sentiment Summarizer",
+        "description": "Automatically generate concise summaries of the overall viewer sentiment. Understand the key emotional tone of your audience at a glance and get short, paragraph-level takeaways representing collective opinions."
+    },
+    {
+        "title": "Common Queries",
+        "description": "Identify frequently asked questions or recurring topics from your video's comments. Understand what your viewers are curious about, what confuses them, or what they expect in future videos—ideal for content planning and improving engagement."
+    }
+];
 
-    const features=[
-        {"title":"Sentiment Breakdown",
-            "description":"Get a detailed breakdown of positive, neutral and negative sentiments in your video's comments"
-        },
-        {"title":"Sentiment Summarizer",
-            "description":"Get a detailed breakdown of positive, neutral and negative sentiments in your video's comments"
-        },
-        {"title":"Common Queries",
-            "description":"Get a detailed breakdown of positive, neutral and negative sentiments in your video's comments"
-        }
-    ]
 
   return (
     <div className='mx-auto w-3/4 mt-8 py-4'>
