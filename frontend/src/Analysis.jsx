@@ -31,7 +31,7 @@ const Analysis = () => {
           <button
           className='text-zinc-200 w-1/2 md:w-fit text-sm sm:text-md font-semibold bg-blue-900 px-4 py-1 mx-auto md:mx-4 rounded-lg'
           onClick={()=>formatUrl(url)}>
-            Analyze
+            Analyze pls
           </button>
       </div>
 
