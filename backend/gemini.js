@@ -5,7 +5,7 @@ dotenv.config()
 
 const groq = new Groq({apiKey: process.env.GROQ_KEY});
 
-const chatCompletion = await groq.chat.completions.create({
+export const chatCompletion = await groq.chat.completions.create({
   "messages": [
     {
       "role": "user",
@@ -34,5 +34,6 @@ const chatCompletion = await groq.chat.completions.create({
 
 for await (const chunk of chatCompletion) {
   process.stdout.write(chunk.choices[0]?.delta?.content || '');
+  return JSON.stringify(chunk.choices[0]?.delta?.content)
 }
 

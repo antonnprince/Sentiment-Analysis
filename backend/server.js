@@ -2,11 +2,17 @@ import express from 'express';
 import cors from 'cors';
 import { google } from 'googleapis';
 import dotenv from 'dotenv'
-import getAnalysis from './gemini.js';
-import { get } from 'mongoose';
+import {chatCompletion} from "./gemini.js"
+
+
+dotenv.config()
 
 const app = express();
 
+const youtube = google.youtube({
+  version: 'v3',
+  auth: process.env.YOUTUBE_API // Set your API key here
+});
 app.use(express.json());
 
 app.use(cors({
@@ -16,25 +22,7 @@ app.use(cors({
 }));
 
 
-dotenv.config()
-
-const youtube = google.youtube({
-  version: 'v3',
-  auth: process.env.YOUTUBE_API // Set your API key here
-});
-
 app.listen(3000, () => console.log("Server is running on port 3000"));
-
-// // Endpoint to get comments
-// app.get('/', async(req,res)=>{
-//   try {
-//     const data = await getAnalysis(["This is a test comment", "Another comment"]);
-//     console.log(data)
-//     return res.status(200).json({message:"Welcome"})
-//   } catch (error) {
-//     console.log(error)
-//   }
-// })
 
 app.post('/get_comments', async (req, res) => {
   try {
@@ -66,6 +54,7 @@ app.post('/get_comments', async (req, res) => {
     res.status(500).json({ message: "Error fetching comments" });
   }
 });
+
 
 app.get('/analysis', async(req,res)=>{
   try {
