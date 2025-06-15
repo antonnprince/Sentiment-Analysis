@@ -1,19 +1,20 @@
 import { Groq } from 'groq-sdk';
-import dotenv from 'dotenv'
+import dotenv from 'dotenv';
 
-dotenv.config()
+dotenv.config();
 
-const groq = new Groq({apiKey: process.env.GROQ_KEY});
+const groq = new Groq({ apiKey: process.env.GROQ_KEY });
 
-export const chatCompletion=({comments}) = await groq.chat.completions.create({
-  "messages": [
-    {
-      "role": "user",
-      "content": `I want you to analyze these comments and divide
-      them into 3 categories - agree, disagree, and neutral. Return the answer in JSON format, with the corresponding number of comments for each field. Give a concise and accurate summary from postive and negative comments, along with queries the viewers have mentioned in the comments. Also, provide any additional information from all the comments that might be useful. 
-      The comments are:
-       ${comments}
-      Generate the output as:   
+export const chatCompletion = async ({ comments }) => {
+  const completion = await groq.chat.completions.create({
+    messages: [
+      {
+        role: 'user',
+        content: `I want you to analyze these comments and divide
+        them into 3 categories - agree, disagree, and neutral. Return the answer in JSON format, with the corresponding number of comments for each field. Give a concise and accurate summary from positive and negative comments, along with queries the viewers have mentioned in the comments. Also, provide any additional information from all the comments that might be useful. 
+        The comments are:
+        ${comments}
+        Generate the output as:   
         {
             total: (total comments in numerical value),
             positive: (positive comments in numerical value),   
@@ -24,25 +25,32 @@ export const chatCompletion=({comments}) = await groq.chat.completions.create({
             queries:(list of queries mentioned in the comments),
             additional_info: (any additional information from the comments)
         }
-`
-    },
-  ],
-  "model": "deepseek-r1-distill-llama-70b",
-  "temperature": 0.6,
-  "max_completion_tokens": 4096,
-  "top_p": 0.95,
-  "stream": true,
-  "stop": null
-});
+        `,
+      },
+    ],
+    model: 'deepseek-r1-distill-llama-70b',
+    temperature: 0.6,
+    max_completion_tokens: 4096,
+    top_p: 0.95,
+    stream: true,
+    stop: null,
+  });
 
-for await (const chunk of chatCompletion) {
-  // process.stdout.write(chunk.choices[0]?.delta?.content || '');
-  return JSON.stringify(chunk.choices[0]?.delta?.content)
-}
+  let output = '';
 
-const result = await chatCompletion("hi")
-if(result){
-  console.log("Result is:",result)
-}
+  for await (const chunk of completion) {
+    output += chunk.choices[0]?.delta?.content || '';
+  }
 
+  return output;
+};
 
+// Sample call
+const run = async () => {
+  const result = await chatCompletion({ comments: "hi" });
+  if (result) {
+    console.log("Result is:", result);
+  }
+};
+
+run();
