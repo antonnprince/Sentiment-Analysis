@@ -5,11 +5,14 @@ dotenv.config()
 
 const groq = new Groq({apiKey: process.env.GROQ_KEY});
 
-export const chatCompletion = await groq.chat.completions.create({
+export const chatCompletion=({comments}) = await groq.chat.completions.create({
   "messages": [
     {
       "role": "user",
-      "content": `I want you to analyze these comments and divide them into 3 categories - agree, disagree, and neutral. Return the answer in JSON format, with the corresponding number of comments for each field. Give a concise and accurate summary from postive and negative comments, along with queries the viewers have mentioned in the comments. Also, provide any additional information from all the comments that might be useful. 
+      "content": `I want you to analyze these comments and divide
+      them into 3 categories - agree, disagree, and neutral. Return the answer in JSON format, with the corresponding number of comments for each field. Give a concise and accurate summary from postive and negative comments, along with queries the viewers have mentioned in the comments. Also, provide any additional information from all the comments that might be useful. 
+      The comments are:
+       ${comments}
       Generate the output as:   
         {
             total: (total comments in numerical value),
@@ -33,7 +36,13 @@ export const chatCompletion = await groq.chat.completions.create({
 });
 
 for await (const chunk of chatCompletion) {
-  process.stdout.write(chunk.choices[0]?.delta?.content || '');
+  // process.stdout.write(chunk.choices[0]?.delta?.content || '');
   return JSON.stringify(chunk.choices[0]?.delta?.content)
 }
+
+const result = await chatCompletion("hi")
+if(result){
+  console.log("Result is:",result)
+}
+
 

@@ -45,7 +45,7 @@ app.post('/get_comments', async (req, res) => {
         }
       )
     });
-    // const analysis = await getAnalysis(comments)
+    const analysis = await chatCompletion(comments)
     // console.log(JSON.parse(comments))
     res.status(200).json(comments);
   } 
@@ -56,13 +56,13 @@ app.post('/get_comments', async (req, res) => {
 });
 
 
-app.get('/analysis', async(req,res)=>{
-  try {
-    return res.status(200).json(analysis)
-  } catch (error) {
-    console.log(error)
-  }
-})
+// app.get('/analysis', async(req,res)=>{
+//   try {
+//     return res.status(200).json(analysis)
+//   } catch (error) {
+//     console.log(error)
+//   }
+// })
 
 // Helper function to extract video ID from YouTube URL
 function extractVideoId(url) {
