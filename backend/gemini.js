@@ -5,7 +5,8 @@ dotenv.config();
 
 const groq = new Groq({ apiKey: process.env.GROQ_KEY });
 
-export const chatCompletion = async ({ comments }) => {
+export const chatCompletion = async ([comments]) => {
+  
   const completion = await groq.chat.completions.create({
     messages: [
       {
@@ -47,7 +48,7 @@ export const chatCompletion = async ({ comments }) => {
 
 // Sample call
 const run = async () => {
-  const result = await chatCompletion({ comments: "hi" });
+  const result = await chatCompletion(["hello this is good", "No this is veryyy bad","idk its ok"]);
   if (result) {
     console.log("Result is:", result);
   }
