@@ -1,7 +1,16 @@
 #root {
-   height: 100vh;
-   width: 100vw;
-   margin: 0;
-   padding: 0;
- text-align: center;
+  min-height: 100vh;
+  width: 100vw; /* changed from 100vw */
+  background-color: #6778d5;
+}
+
+
+html, body {
+  height: 100%;
+  width: 100%;
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+    background-color: #101323;
+
 }

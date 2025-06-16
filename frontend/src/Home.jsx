@@ -19,7 +19,7 @@ const Home = () => {
   // }
 
   return (
-    <div className='justify-center bg-[#101323] h-full pb-8'>
+    <div className='min-h-screen w-full overflow-x-hidden overflow-y-auto justify-center bg-[#101323] pb-8'>
       <Nav /> 
       <Hero />
       <Features/>

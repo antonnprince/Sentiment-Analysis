@@ -46,6 +46,7 @@ app.post('/get_comments', async (req, res) => {
       )
     });
     // const analysis = await chatCompletion(comments)
+    // console.log(JSON.parse(analysis))
     // console.log(JSON.parse(comments))
     res.status(200).json(comments);
   } 
