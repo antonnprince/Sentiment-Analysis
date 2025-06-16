@@ -5,7 +5,7 @@ dotenv.config();
 
 const groq = new Groq({ apiKey: process.env.GROQ_KEY });
 
-export const chatCompletion = async ([comments]) => {
+export const chatCompletion = async (comments) => {
   
   const completion = await groq.chat.completions.create({
     messages: [
@@ -26,6 +26,7 @@ export const chatCompletion = async ([comments]) => {
             queries:(list of queries mentioned in the comments),
             additional_info: (any additional information from the comments)
         }
+            Respond ONLY in JSON. Do not include any explanation or markdown formatting.
         `,
       },
     ],
