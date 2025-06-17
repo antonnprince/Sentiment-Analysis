@@ -16,7 +16,7 @@ const youtube = google.youtube({
 app.use(express.json());
 
 app.use(cors({
-  origin: "http://localhost:5173/", // Allow only this frontend
+  origin: "*", // Allow only this frontend
   methods: "GET,POST", // Allow specific HTTP methods
   credentials: true // Allow cookies & authentication headers
 }));
@@ -48,7 +48,8 @@ app.post('/get_comments', async (req, res) => {
 
 
     let analysis = await chatCompletion(comments)
-    analysis=analysis.split('</think>')[1]
+    console.log(analysis)
+    analysis=analysis.split("</think>")[1]
     res.status(200).json(analysis);
   } 
   catch (error) {
