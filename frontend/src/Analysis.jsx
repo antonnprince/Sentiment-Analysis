@@ -7,19 +7,17 @@ const Analysis = () => {
   const [url,setUrl] = useState("")
   const [result, setResult] = useState()
 
-const getAnalysis = async () => {
-  console.log("rs hit");
-  let res = await axios.post("http://localhost:3000/get_comments", {
-    url: "https://www.youtube.com/watch?v=B_VSUOdVvsQ",
-  });
+  const getAnalysis = async () => {
+    console.log("rs hit");
+    let res = await axios.post("http://localhost:3000/get_comments", {
+      url: "https://www.youtube.com/watch?v=B_VSUOdVvsQ",
+    });
 
-  const raw = res.data; 
-  res = raw.trim().replace(/```json|```/g,"")
-  res = JSON.parse(res)
-  setResult(res)
-  // console.log("RES: ",res,"Type: ", typeof res)
- 
-  }
+    const raw = res.data; 
+    res = raw.trim().replace(/```json|```/g,"")
+    res = JSON.parse(res)
+    setResult(res) 
+    }
 
 
   const formatUrl =(videoUrl)=>{
