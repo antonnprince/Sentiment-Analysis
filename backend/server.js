@@ -2,7 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import { google } from 'googleapis';
 import dotenv from 'dotenv'
-import {chatCompletion} from "./gemini.js"
+import {chatCompletion} from "./ds.js"
 
 
 dotenv.config()
@@ -45,13 +45,11 @@ app.post('/get_comments', async (req, res) => {
         }
       )
     });
-    console.log("Comments are: ",comments)
 
-    const analysis = await chatCompletion(comments)
-    
-    console.log("Analysis is: ",analysis)
-    
-    res.status(200).json(comments);
+
+    let analysis = await chatCompletion(comments)
+    analysis=analysis.split('</think>')[1]
+    res.status(200).json(analysis);
   } 
   catch (error) {
     console.error("Error fetching comments", error);
@@ -60,15 +58,6 @@ app.post('/get_comments', async (req, res) => {
 });
 
 
-// app.get('/analysis', async(req,res)=>{
-//   try {
-//     return res.status(200).json(analysis)
-//   } catch (error) {
-//     console.log(error)
-//   }
-// })
-
-// Helper function to extract video ID from YouTube URL
 function extractVideoId(url) {
   const regex = /(?:https?:\/\/)?(?:www\.)?youtube\.com\/watch\?v=([^&]+)|youtu\.be\/([^?&]+)/;
   const match = url.match(regex);

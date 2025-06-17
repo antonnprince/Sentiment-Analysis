@@ -28,7 +28,11 @@ export const chatCompletion = async (comments) => {
             queries:(list of queries mentioned in the comments),
             additional_info: (any additional information from the comments)
         }
-        Respond ONLY in JSON. Do not include any explanation or markdown formatting.
+        I want you to analyze these comments and return a clean JSON object. 
+
+      Do not include any XML-like tags such as <think>, <thoughts>, <output>, etc.
+
+    Respond ONLY with a raw JSON object inside curly braces. Do NOT add any extra explanation, markdown formatting, or tags.
         `,
       },
     ],
