@@ -10,7 +10,7 @@ dotenv.config()
 const app = express();
 
 app.use(cors({
-  origin: "https://sentiment-analysis-lac.vercel.app/"}));
+  origin: "https://sentiment-analysis-lac.vercel.app"}));
 
 app.use(express.json());
 
