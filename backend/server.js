@@ -16,10 +16,7 @@ const youtube = google.youtube({
 app.use(express.json());
 
 app.use(cors({
-  origin: "http://localhost:5173", // Allow only this frontend
-  methods: "GET,POST", // Allow specific HTTP methods
-  credentials: true // Allow cookies & authentication headers
-}));
+  origin: "http://localhost:5173"}));
 
 
 app.listen(3000, () => console.log("Server is running on port 3000"));
