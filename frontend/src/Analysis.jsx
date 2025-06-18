@@ -1,5 +1,5 @@
   import { useState, useEffect } from 'react';
-  // import { useState } from 'react'
+  import Loader from './components/ui/Loader.jsx'
   import { BarChart } from '@mui/x-charts/BarChart';
   import axios from 'axios'
 
@@ -10,24 +10,25 @@
 
     const getAnalysis = async () => {
       console.log("rs hit");
+      setLoading(true)
       
-      if(!url.includes("https://www.youtube.com/watch"))
+       if(!url.includes("https://www.youtube.com/watch"))
       {
-         console.log("INvalid")
-          setUrl("")
-         return;
+        alert("Invalid URL. Please enter a valid one")
+        setUrl("")
+        setLoading(false)
+        return;
       }
-       
-
+     
       let res = await axios.post("https://sentiment-analysis-backend-mu.vercel.app/get_comments", {
         url: url,
       });
-
-
+      
       const raw = res.data; 
       res = raw.trim().replace(/```json|```/g,"")
       res = JSON.parse(res)
-      console.log(res)
+      // console.log(res)
+      setLoading(false)
       setResult(res) 
     }
 
@@ -58,8 +59,10 @@
               Analyze 
             </button>
         </div>
-
         {
+           loading ?
+           <Loader/>
+          :
             result ? 
             <>
               <div className='w-full lg:w-1/2 mx-auto my-8 p-4 rounded-lg shadow-stone-950 shadow-lg'>
@@ -113,9 +116,9 @@
               </div>
             </> : 
             <>
-              <h1>Enter some link to see results</h1>
+              <h1>Enter some URL to see results</h1>
             </>
-        } 
+        }
       
       </div>
     )
