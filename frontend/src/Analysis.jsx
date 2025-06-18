@@ -5,7 +5,8 @@ import axios from 'axios'
 
 const Analysis = () => {
   const [url,setUrl] = useState("")
-  const [result, setResult] = useState()
+  const [result, setResult] = useState(null)
+  const [loading, setLoading] = useState(false)
 
   const getAnalysis = async () => {
     console.log("rs hit");
@@ -16,8 +17,9 @@ const Analysis = () => {
     const raw = res.data; 
     res = raw.trim().replace(/```json|```/g,"")
     res = JSON.parse(res)
+    console.log(res)
     setResult(res) 
-    }
+  }
 
 
   const formatUrl =(videoUrl)=>{
@@ -42,16 +44,21 @@ const Analysis = () => {
         />
                 
           <button
-          className='text-zinc-200 w-1/2 md:w-fit text-sm sm:text-md font-semibold bg-blue-900 px-4 py-1 mx-auto md:mx-4 rounded-lg'
-          // onClick={()=>formatUrl(url)}
+          className='text-zinc-200 w-1/2 md:w-fit text-sm sm:text-md 
+          hover:bg-blue-700
+          font-semibold bg-blue-900 px-4 py-1 mx-auto md:mx-4 rounded-lg'
           onClick={getAnalysis}
+          disabled={loading}
           >
             Analyze 
           </button>
       </div>
 
-      <div className='w-full lg:w-1/2 mx-auto my-8 p-4 rounded-lg shadow-stone-950 shadow-lg'>
-      <h1 className='text-center sm:text-left font-bold text-xl text-slate-200'>Sentiment Breakdown</h1>
+      {
+          result ? 
+          <>
+              <div className='w-full lg:w-1/2 mx-auto my-8 p-4 rounded-lg shadow-stone-950 shadow-lg'>
+              <h1 className='text-center sm:text-left font-bold text-xl text-slate-200'>Sentiment Breakdown</h1>
           <BarChart
           borderRadius={10}
              xAxis={[
@@ -72,7 +79,7 @@ const Analysis = () => {
               ]}
             series={[
               {
-                data: [2, 5, 3],
+                data: [result.positive, result.neutral, result.negative],
                 color: '#193cb8',
               },
             ]}
@@ -81,9 +88,29 @@ const Analysis = () => {
       </div>
       
       <div className='flex flex-col mx-auto'>
+        <h2 className='font-bold text-xl text-center sm:text-3xl text-slate-200'>Positive Comments</h2>
+         <p className='text-center'>{result.positive_comments_summary}</p>
+         
+         <h2 className='font-bold text-xl text-center sm:text-3xl text-slate-200'>Negative Comments</h2>
+         <p className='text-center'>{result.negative_comments_summary}</p>
+
+        <h2 className='font-bold text-xl text-center sm:text-3xl text-slate-200'>Most Commonly Asked</h2>
+         <p className='text-center'>
+          {
+            result.queries.map((item,index)=><p key={index}>{index + 1}. {item}</p>)
+          }
+         </p>
+
+
         <h2 className='font-bold text-xl text-center sm:text-3xl text-slate-200'>Additional Information</h2>
-         <p className='text-center'>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+         <p className='text-center'>{result.additional_info}</p>
       </div>
+          </> : 
+          <>
+            <h1>Enter some link to see results</h1>
+          </>
+      } 
+    
     </div>
   )
 }
