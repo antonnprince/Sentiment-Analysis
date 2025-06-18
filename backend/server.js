@@ -9,14 +9,18 @@ dotenv.config()
 
 const app = express();
 
+app.use(cors({
+  origin: "http://localhost:5173"}));
+
+app.use(express.json());
+
+
+
 const youtube = google.youtube({
   version: 'v3',
   auth: process.env.YOUTUBE_API // Set your API key here
 });
-app.use(express.json());
 
-app.use(cors({
-  origin: "http://localhost:5173"}));
 
 
 app.listen(3000, () => console.log("Server is running on port 3000"));
