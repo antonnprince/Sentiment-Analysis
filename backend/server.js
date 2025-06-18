@@ -16,7 +16,7 @@ const youtube = google.youtube({
 app.use(express.json());
 
 app.use(cors({
-  origin: "*", // Allow only this frontend
+  origin: "http://localhost:5173/analysis", // Allow only this frontend
   methods: "GET,POST", // Allow specific HTTP methods
   credentials: true // Allow cookies & authentication headers
 }));
