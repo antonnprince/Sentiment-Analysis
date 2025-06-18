@@ -8,6 +8,7 @@
     const [result, setResult] = useState(null)
     const [loading, setLoading] = useState(false)
 
+    const getComments = import.meta.env.VITE_SERVER
     const getAnalysis = async () => {
       console.log("rs hit");
       setLoading(true)
@@ -20,7 +21,7 @@
         return;
       }
      
-      let res = await axios.post("https://sentiment-analysis-backend-mu.vercel.app/get_comments", {
+      let res = await axios.post(`${getComments}/get_comments`, {
         url: url,
       });
       
